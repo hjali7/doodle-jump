@@ -2,14 +2,18 @@
 
 const board = document.getElementById("board");
 const context = board.getContext("2d");
+board.height = 576;
+board.width = 360;
 
 // doodler var
-const doodlerWidth = 46;
+const doodlerWidth = 40;
 const doodlerHeight = 46;
-let doodlerX = board.width * 3 + doodlerWidth /3 ;
-let doodlerY = board.height * 5;
+
+let doodlerX = board.width / 2 - doodlerWidth / 2;
+let doodlerY = board.height * 7 / 8 - doodlerHeight;
 
 // doodler obj
+
 let doodler = {
     img : null ,
     x : doodlerX ,
@@ -22,20 +26,17 @@ let doodler = {
 
 let velacityX = 0;
 let velacityY = 0;
-const initialVelacity = -4;
+const initialVelacity = -8;
 const gravity = 0.4;
 
 // platforms
 
-const platformWidth = 60;
-const platformHeight = 20;
-let platformImg;
 let platformArrays = [];
+const platformWidth = 60;
+const platformHeight = 18;
+let platformImg;
 
 window.onload = () => {    
-    const boardHeight = board.height = window.innerHeight;
-    const boardWidth  = board.width = window.innerWidth;
-
     const doodlerRightImg = new Image();
     doodlerRightImg.src = "./assets/doodler-right.png";
 
@@ -61,7 +62,7 @@ window.onload = () => {
             velacityX = 4 ;
         }else if (e.code == "ArrowUp" || e.code == "KeyW") {
             velacityX = 0;
-        }
+        };
     });
 };
 
@@ -89,43 +90,28 @@ function update () {
 };
 
 function DrawPlatforms () {
-    for(let i = 0 ; i < 10 ; i++) {
-        let RandomX = Math.floor(Math.random() * board.width *3);
+    platformArrays = [];
+    let startPlatform = {
+        img : platformImg ,
+        x : board.width /2 ,
+        height : board.height - 50 ,
+        width : platformWidth ,
+        height : platformHeight,
+    };
+
+    platformArrays.push(startPlatform);
+    
+    for (let i = 0; i < 6; i++) {
+        let randomX = Math.floor(Math.random() * board.width*3/4);
         let platform = {
             img : platformImg,
-            x : board.width + doodler.width,
+            x : randomX,
             y : board.height - 75*i - 150,
-            width : platformWidth ,
-            height : platformHeight,
-        };
-
-        let platformTwo = {
-          img: platformImg,
-          x: board.width/3,
-          y: board.height - 75 * i - 150,
-          width: platformWidth,
-          height: platformHeight,
-        };
-        let platformThree = {
-          img: platformImg,
-          x: board.width/4,
-          y: board.height - 75 * i - 150,
-          width: platformWidth,
-          height: platformHeight,
-        };
-        let platformFour = {
-          img: platformImg,
-          x: board.width / RandomX*(i+1),
-          y: board.height - 75 * i - 150,
-          width: platformWidth,
-          height: platformHeight,
-        };
-
+            width : platformWidth,
+            height : platformHeight
+        }
         platformArrays.push(platform);
-        platformArrays.push(platformTwo);
-        platformArrays.push(platformThree);
-        platformArrays.push(platformFour);
-    }
+    };
 };
 
 function detectCollision (a , b) {
