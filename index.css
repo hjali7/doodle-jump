@@ -9,7 +9,7 @@
 
 body {
     width: 100%;
-    height : 100vh;
+    height : 90vh;
     overflow: hidden;
     display: flex;
     align-items : center;
@@ -19,11 +19,20 @@ body {
     background: radial-gradient(circle , rgba(2,0,36,1) 0% , rgba(0,212,225,1) 100%);
 }
 
+h1 {
+    color : lightgray;
+}
+
+p {
+    font-size: 25px;
+    font-weight:bold;
+    color: white;
+}
+
 #board {
     background-image : url("./assets/doodlerbg2.jpg");
     background-repeat : no-repeat;
     background-position : center;
     border-radius: 12px;
-    box-shadow: 1px -1px 1px ;
 }
 
